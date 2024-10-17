@@ -58,7 +58,7 @@
             width: 100%;
             height: 100%;
             background: url('OSCS Logo.png') no-repeat center center;
-            background-size: cover;
+            background-size: 90%;
             z-index: -1;
             opacity: 0.3;
         }
@@ -79,6 +79,10 @@
             transform: scale(2.5);
             transition: transform 0.2s;
         }
+        .grid-item.purchased {
+            background-color: #ffcccb;
+            cursor: not-allowed;
+        }
         .about {
             margin-top: 50px;
         }
@@ -97,7 +101,7 @@
     <div class="top-section">
         <div class="purchase" id="purchase">
             <h2>Purchase a Number</h2>
-            <form>
+            <form id="purchaseForm">
                 <label for="name">Your Name:</label>
                 <input type="text" id="name" name="name" required>
 
@@ -114,12 +118,38 @@
         <div class="grid-container" id="grid">
             <div class="grid-background"></div>
             <script>
+                const purchasedNumbers = new Set();
+                const gridContainer = document.getElementById('grid');
+                const purchaseForm = document.getElementById('purchaseForm');
+                const numberInput = document.getElementById('number');
+
+                // Generate the grid items
                 for (let i = 0; i < 1000; i++) {
                     const gridItem = document.createElement('div');
                     gridItem.className = 'grid-item';
                     gridItem.textContent = String(i).padStart(3, '0');
-                    document.getElementById('grid').appendChild(gridItem);
+                    gridItem.addEventListener('click', () => {
+                        if (!purchasedNumbers.has(i)) {
+                            numberInput.value = i;
+                        }
+                    });
+                    gridContainer.appendChild(gridItem);
                 }
+
+                // Handle form submission
+                purchaseForm.addEventListener('submit', (event) => {
+                    event.preventDefault();
+                    const number = parseInt(numberInput.value);
+                    if (!purchasedNumbers.has(number)) {
+                        purchasedNumbers.add(number);
+                        const gridItem = gridContainer.children[number];
+                        gridItem.classList.add('purchased');
+                        gridItem.style.pointerEvents = 'none';
+                        alert(`Number ${String(number).padStart(3, '0')} has been reserved successfully!`);
+                    } else {
+                        alert('This number is already reserved. Please choose another.');
+                    }
+                });
             </script>
         </div>
     </div>
