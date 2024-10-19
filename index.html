@@ -40,8 +40,8 @@
         }
         .grid-container {
             display: grid;
-            grid-template-columns: repeat(25, 1fr);
-            grid-gap: 1px;
+            grid-template-columns: repeat(auto-fit, minmax(40px, 1fr));
+            grid-gap: 0;
             justify-content: center;
             width: 100%;
             max-width: 800px;
@@ -62,7 +62,7 @@
         }
         .grid-item {
             width: 100%;
-            aspect-ratio: 2;
+            aspect-ratio: 2.1;
             background-color: #ffffff;
             color: #000000;
             display: flex;
