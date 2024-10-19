@@ -41,7 +41,7 @@
         .grid-container {
             display: grid;
             grid-template-columns: repeat(25, 1fr);
-            grid-gap: 5px;
+            grid-gap: 1px;
             justify-content: center;
             width: 100%;
             max-width: 800px;
@@ -63,7 +63,7 @@
         .grid-item {
             width: 100%;
             aspect-ratio: 2;
-            background-color: #d3d3d3;
+            background-color: #ffffff;
             color: #000000;
             display: flex;
             align-items: center;
@@ -72,6 +72,7 @@
             font-family: 'Georgia', serif;
             cursor: pointer;
             font-weight: bold;
+            border: 1px solid #000000;
         }
         .grid-item:hover {
             transform: scale(1.5);
@@ -101,17 +102,14 @@
         }
     </style>
 </head>
-
+<body>
     <nav>
         <div style="text-align: center; margin-bottom: 20px;">
             <a href="#home" style="margin-right: 20px; text-decoration: none; color: #007bff; font-weight: bold;">Home</a>
             <a href="#about" style="text-decoration: none; color: #007bff; font-weight: bold;">About</a>
         </div>
     </nav>
-    <header>
-        <img src="1000clublogo.jpeg" alt="Fundraiser Logo" style="width: 300px; height: auto; margin: 0 auto; display: block;">
-    </header>
-
+    
     <p>Support our church by purchasing a number between 000 and 999. Each month, we'll have a drawing, and the winning number will receive a prize!</p>
 
     <div class="purchase-header" id="purchase">
@@ -120,7 +118,6 @@
             <label for="name">Your Name:</label>
             <input type="text" id="name" name="name" required>
 
-            
             <p>To reserve multiple numbers, you can either click on the desired numbers in the grid or type them in the input box below, separated by commas.</p>
             <input type="text" id="numbers" name="numbers" pattern="\d{3}(,\s*\d{3})*" required>
 
