@@ -131,28 +131,24 @@
 
     <div class="grid-container" id="grid">
         <div class="grid-background"></div>
-        // Import the functions you need from the SDKs you need
-    <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-    import { getDatabase } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
-
-    // Your web app's Firebase configuration
-    const firebaseConfig = {
-      apiKey: "AIzaSyAZJc1LSJE4HB2hLOk0ao40u7PZ-8eHa4s",
-      authDomain: "member-club.firebaseapp.com",
-      projectId: "member-club",
-      storageBucket: "member-club.appspot.com",
-      messagingSenderId: "113443832728",
-      appId: "1:113443832728:web:a0e219a230fafaeea661ed",
-      measurementId: "G-67YQGW58WX"
-    };
-
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const database = getDatabase(app);
-    </script>
     
-            const database = firebase.database();
+
+            // Import Firebase App and Database
+            <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+            <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
+
+            // Initialize Firebase
+            const firebaseConfig = {
+                apiKey: "AIzaSyAZJc1LSJE4HB2hLOk0ao40u7PZ-8eHa4s",
+                authDomain: "member-club.firebaseapp.com",
+                projectId: "member-club",
+                storageBucket: "member-club.appspot.com",
+                messagingSenderId: "113443832728",
+                appId: "1:113443832728:web:a0e219a230fafaeea661ed",
+                measurementId: "G-67YQGW58WX"
+            };
+            const app = firebase.initializeApp(firebaseConfig);
+            const database = firebase.database(app);
 
             const purchasedNumbers = new Set();
             const gridContainer = document.getElementById('grid');
