@@ -133,9 +133,7 @@
         <div class="grid-background"></div>
         <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
-            <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-            <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
-
+        <script>
             // Initialize Firebase
             const firebaseConfig = {
                 apiKey: "AIzaSyAZJc1LSJE4HB2hLOk0ao40u7PZ-8eHa4s",
@@ -226,28 +224,7 @@
                 }
             });
         </script>
-        <script>
-            const gridContainer = document.getElementById('grid');
-            const purchaseForm = document.getElementById('purchaseForm');
-            const numbersInput = document.getElementById('numbers');
-            const paymentButton = document.getElementById('paymentButton');
-
-            // Generate the grid items
-            for (let i = 0; i < 1000; i++) {
-                const gridItem = document.createElement('div');
-                gridItem.className = 'grid-item';
-                gridItem.textContent = String(i).padStart(3, '0');
-                gridItem.addEventListener('click', () => {
-                    if (!purchasedNumbers.has(i)) {
-                        const currentNumbers = numbersInput.value ? numbersInput.value.split(',').map(n => n.trim()) : [];
-                        if (!currentNumbers.includes(String(i).padStart(3, '0'))) {
-                            currentNumbers.push(String(i).padStart(3, '0'));
-                            numbersInput.value = currentNumbers.join(', ');
-                        }
-                    }
-                });
-                gridContainer.appendChild(gridItem);
-            }
+        
 
             // Handle form submission
             purchaseForm.addEventListener('submit', (event) => {
