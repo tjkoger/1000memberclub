@@ -173,6 +173,7 @@
 
             // Handle form submission
             purchaseForm.addEventListener('submit', (event) => {
+                console.log('Form submission triggered');
                 event.preventDefault();
                 const numbers = numbersInput.value.split(',').map(n => parseInt(n.trim()));
                 let successfullyReserved = [];
@@ -184,7 +185,14 @@
                         const gridItem = gridContainer.children[number];
 
                         // Save to Firebase
+                        console.log('Attempting to save to Firebase');
                         const newPurchaseRef = database.ref('purchases').push();
+                        console.log('Saving data:', {
+                            name: document.getElementById('name').value,
+                            email: document.getElementById('email').value,
+                            number: String(number).padStart(3, '0'),
+                            paid: false
+                        });
                         newPurchaseRef.set({
                             name: document.getElementById('name').value,
                             email: document.getElementById('email').value,
