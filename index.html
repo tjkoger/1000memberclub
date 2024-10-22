@@ -188,50 +188,29 @@
             });
         </script>
         <script>
-            const googleScriptURL = https://script.google.com/macros/s/AKfycbzLkBqTW7TCqri8IdGQOka1gHLyQoZSDUQ-yMOFBaMcEYmsU3ea_rYpLHIaOUbJRXw8Eg/exec; // Replace with the actual Google Apps Script URL
+            const googleScriptURL = "https://script.google.com/macros/s/AKfycbyXShC-AdVnCHHv4tpgwEZ8PPGjOKrtdJU-qEQdAdut/dev";
 
             purchaseForm.addEventListener('submit', (event) => {
                 event.preventDefault();
-                const numbers = numbersInput.value.split(',').map(n => n.trim());
-                const data = {
-                    name: document.getElementById('name').value,
-                    email: document.getElementById('email').value,
-                    numbers: numbers.join(', '),
-                    paid: false
-                };
+                const numbers = numbersInput.value.split(',').map(n => parseInt(n.trim()));
+                let successfullyReserved = [];
+                let alreadyReserved = [];
 
-                fetch(googleScriptURL, {
-                    method: 'POST',
-                    body: JSON.stringify(data),
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.result === 'success') {
-                        alert(`Numbers ${numbers.join(', ')} have been reserved successfully!`);
-                        paymentButton.style.display = 'block';
-                        paymentButton.onclick = () => {
-                            window.location.href = 'https://checkout.squarespace.com/buy/some-payment-link'; // replace with the actual Squarespace payment link
-                        };
+                numbers.forEach((number) => {
+                    if (!purchasedNumbers.has(number)) {
+                        purchasedNumbers.add(number);
+                        const gridItem = gridContainer.children[number];
+                        gridItem.classList.add('purchased');
+                        gridItem.style.pointerEvents = 'none';
+                        successfullyReserved.push(String(number).padStart(3, '0'));
                     } else {
-                        alert('There was an error saving your reservation. Please try again.');
+                        alreadyReserved.push(String(number).padStart(3, '0'));
                     }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('There was an error saving your reservation. Please try again.');
                 });
-            });
-        </script>
-    </div>
 
-    <div class="about" id="about">
-        <h2>About the Fundraiser</h2>
-        <p>The 1000 Member Club is your chance to support Our Saviour Catholic School while having some fun along the way! Each month, we draw three winners: a grand prize of $1,000, a second prize of $120, and a third prize of $60. And the best part? Purchased numbers are eligible to win multiple times throughout the year!</p>
-        <p>All proceeds benefit Our Saviour Catholic School, going directly into a Legacy Fund that will build and grow over time—untouched principal, ensuring a lasting impact for generations to come. Your support helps create a bright future for our students and community.</p>
-        <p>Join the fun, support a great cause, and be part of something bigger. Together, we can make a difference!</p>
-    </div>
-</body>
-</html>
+                if (successfullyReserved.length > 0) {
+                    // Save to Google Sheets via Google Apps Script
+                    const data = {
+                        name: document.getElementById('name').value,
+                        email: document.getElementById('email').value,
+                        numbers: successfullyReserved.join(', '),
