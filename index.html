@@ -56,7 +56,7 @@
             width: 100%;
             height: 100%;
             background: url('OSCS Logo.png') no-repeat center center;
-            background-size: 94%;
+            background-size: 90%;
             z-index: -1;
             opacity: 0.3;
         }
@@ -75,8 +75,8 @@
             border: 1px solid #000000;
         }
         .grid-item:hover {
-            transform: scale(1.8);
-            transition: transform 0.1s;
+            transform: scale(1.7);
+            transition: transform 0.2s;
         }
         .grid-item.purchased {
             background-color: #ffcccb;
@@ -115,6 +115,8 @@
     <div class="purchase-header" id="purchase" style="width: calc(100% - 2px); max-width: 800px; margin: 0 auto;">
         <h2>Purchase Numbers</h2>
         <form id="purchaseForm">
+            <label for="phoneNumber">Phone Number:</label>
+            <input type="tel" id="phoneNumber" name="phoneNumber" required>
             <label for="name">Your Name:</label>
             <input type="text" id="name" name="name" required>
 
@@ -188,29 +190,73 @@
             });
         </script>
         <script>
-const googleScriptURL = "https://script.google.com/macros/s/AKfycbzgJyL1so6C1KJe5N3aw5FBJvhT_bA2arT_wm0AFec27-ZdlZfK_o86EeXT9bbLoxse/exec";
+            const googleScriptURL = "https://script.google.com/macros/s/AKfycbxMQC8C8ZOxb8sXLZiQD0fErBeV0olm03IanyzZf9QkXmAegIX_C_2iyaRCxunaxGoG/exec";
 
-fetch(googleScriptURL, {
-    method: 'POST',
-    body: JSON.stringify(data),
-    headers: {
-        'Content-Type': 'application/json',
-    },
-})
-.then(response => response.json())
-.then(data => {
-    console.log('Response from Google Sheets:', data);
-    if (data.result === 'success') {
-        alert(`Numbers ${successfullyReserved.join(', ')} have been reserved successfully!`);
-        paymentButton.style.display = 'block';
-        paymentButton.onclick = () => {
-            window.location.href = 'https://checkout.squarespace.com/buy/some-payment-link'; // replace with the actual Squarespace payment link
-        };
-    } else {
-        alert('There was an error saving your reservation. Please try again.');
-    }
-})
-.catch(error => {
-    console.error('Error:', error);
-    alert('There was an error saving your reservation. Please try again.');
-});
+            purchaseForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+                const numbers = numbersInput.value.split(',').map(n => parseInt(n.trim()));
+                let successfullyReserved = [];
+                let alreadyReserved = [];
+
+                numbers.forEach((number) => {
+                    if (!purchasedNumbers.has(number)) {
+                        purchasedNumbers.add(number);
+                        const gridItem = gridContainer.children[number];
+                        gridItem.classList.add('purchased');
+                        gridItem.style.pointerEvents = 'none';
+                        successfullyReserved.push(String(number).padStart(3, '0'));
+                    } else {
+                        alreadyReserved.push(String(number).padStart(3, '0'));
+                    }
+                });
+
+                if (successfullyReserved.length > 0) {
+                    // Save to Google Sheets via Google Apps Script
+                    const data = {
+                        Name: document.getElementById('name').value,
+                        Email: document.getElementById('email').value,
+                        PhoneNumber: document.getElementById('phoneNumber').value, // Add phone number field
+                        Number: successfullyReserved.join(', '),
+                        Paid: false
+                    };
+
+                    fetch(googleScriptURL, {
+                        method: 'POST',
+                        body: JSON.stringify(data),
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.result === 'success') {
+                            alert(`Numbers ${successfullyReserved.join(', ')} have been reserved successfully!`);
+                            paymentButton.style.display = 'block';
+                            paymentButton.onclick = () => {
+                                window.location.href = 'https://checkout.squarespace.com/buy/some-payment-link'; // replace with the actual Squarespace payment link
+                            };
+                        } else {
+                            alert('There was an error saving your reservation. Please try again.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('There was an error saving your reservation. Please try again.');
+                    });
+                }
+
+                if (alreadyReserved.length > 0) {
+                    alert(`Numbers ${alreadyReserved.join(', ')} are already reserved. Please choose different numbers.`);
+                }
+            });
+        </script>
+    </div>
+
+    <div class="about" id="about">
+        <h2>About the Fundraiser</h2>
+        <p>The 1000 Member Club is your chance to support Our Saviour Catholic School while having some fun along the way! Each month, we draw three winners: a grand prize of $1,000, a second prize of $120, and a third prize of $60. And the best part? Purchased numbers are eligible to win multiple times throughout the year!</p>
+        <p>All proceeds benefit Our Saviour Catholic School, going directly into a Legacy Fund that will build and grow over time—untouched principal, ensuring a lasting impact for generations to come. Your support helps create a bright future for our students and community.</p>
+        <p>Join the fun, support a great cause, and be part of something bigger. Together, we can make a difference!</p>
+    </div>
+</body>
+</html>
