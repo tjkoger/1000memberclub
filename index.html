@@ -56,7 +56,7 @@
             width: 100%;
             height: 100%;
             background: url('OSCS Logo.png') no-repeat center center;
-            background-size: 90%;
+            background-size: 94%;
             z-index: -1;
             opacity: 0.3;
         }
@@ -75,8 +75,8 @@
             border: 1px solid #000000;
         }
         .grid-item:hover {
-            transform: scale(1.7);
-            transition: transform 0.2s;
+            transform: scale(1.8);
+            transition: transform 0.1s;
         }
         .grid-item.purchased {
             background-color: #ffcccb;
@@ -188,29 +188,29 @@
             });
         </script>
         <script>
-            const googleScriptURL = "https://script.google.com/macros/s/AKfycbyXShC-AdVnCHHv4tpgwEZ8PPGjOKrtdJU-qEQdAdut/dev";
+const googleScriptURL = "https://script.google.com/macros/s/AKfycbzgJyL1so6C1KJe5N3aw5FBJvhT_bA2arT_wm0AFec27-ZdlZfK_o86EeXT9bbLoxse/exec";
 
-            purchaseForm.addEventListener('submit', (event) => {
-                event.preventDefault();
-                const numbers = numbersInput.value.split(',').map(n => parseInt(n.trim()));
-                let successfullyReserved = [];
-                let alreadyReserved = [];
-
-                numbers.forEach((number) => {
-                    if (!purchasedNumbers.has(number)) {
-                        purchasedNumbers.add(number);
-                        const gridItem = gridContainer.children[number];
-                        gridItem.classList.add('purchased');
-                        gridItem.style.pointerEvents = 'none';
-                        successfullyReserved.push(String(number).padStart(3, '0'));
-                    } else {
-                        alreadyReserved.push(String(number).padStart(3, '0'));
-                    }
-                });
-
-                if (successfullyReserved.length > 0) {
-                    // Save to Google Sheets via Google Apps Script
-                    const data = {
-                        name: document.getElementById('name').value,
-                        email: document.getElementById('email').value,
-                        numbers: successfullyReserved.join(', '),
+fetch(googleScriptURL, {
+    method: 'POST',
+    body: JSON.stringify(data),
+    headers: {
+        'Content-Type': 'application/json',
+    },
+})
+.then(response => response.json())
+.then(data => {
+    console.log('Response from Google Sheets:', data);
+    if (data.result === 'success') {
+        alert(`Numbers ${successfullyReserved.join(', ')} have been reserved successfully!`);
+        paymentButton.style.display = 'block';
+        paymentButton.onclick = () => {
+            window.location.href = 'https://checkout.squarespace.com/buy/some-payment-link'; // replace with the actual Squarespace payment link
+        };
+    } else {
+        alert('There was an error saving your reservation. Please try again.');
+    }
+})
+.catch(error => {
+    console.error('Error:', error);
+    alert('There was an error saving your reservation. Please try again.');
+});
