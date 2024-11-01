@@ -133,9 +133,64 @@
 
     <div class="grid-container" id="grid">
         <div class="grid-background"></div>
-        
         <script>
-            const googleScriptURL = "https://script.google.com/macros/s/AKfycbyXShC-AdVnCHHv4tpgwEZ8PPGjOKrtdJU-qEQdAdut/dev";
+            const purchasedNumbers = new Set();
+            const gridContainer = document.getElementById('grid');
+            const purchaseForm = document.getElementById('purchaseForm');
+            const numbersInput = document.getElementById('numbers');
+            const paymentButton = document.getElementById('paymentButton');
+
+            // Generate the grid items
+            for (let i = 0; i < 1000; i++) {
+                const gridItem = document.createElement('div');
+                gridItem.className = 'grid-item';
+                gridItem.textContent = String(i).padStart(3, '0');
+                gridItem.addEventListener('click', () => {
+                    if (!purchasedNumbers.has(i)) {
+                        const currentNumbers = numbersInput.value ? numbersInput.value.split(',').map(n => n.trim()) : [];
+                        if (!currentNumbers.includes(String(i).padStart(3, '0'))) {
+                            currentNumbers.push(String(i).padStart(3, '0'));
+                            numbersInput.value = currentNumbers.join(', ');
+                        }
+                    }
+                });
+                gridContainer.appendChild(gridItem);
+            }
+
+            // Handle form submission
+            purchaseForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+                const numbers = numbersInput.value.split(',').map(n => parseInt(n.trim()));
+                let successfullyReserved = [];
+                let alreadyReserved = [];
+
+                numbers.forEach((number) => {
+                    if (!purchasedNumbers.has(number)) {
+                        purchasedNumbers.add(number);
+                        const gridItem = gridContainer.children[number];
+                        gridItem.classList.add('purchased');
+                        gridItem.style.pointerEvents = 'none';
+                        successfullyReserved.push(String(number).padStart(3, '0'));
+                    } else {
+                        alreadyReserved.push(String(number).padStart(3, '0'));
+                    }
+                });
+
+                if (successfullyReserved.length > 0) {
+                    alert(`Numbers ${successfullyReserved.join(', ')} have been reserved successfully!`);
+                    paymentButton.style.display = 'block';
+                    paymentButton.onclick = () => {
+                        window.location.href = 'https://checkout.squarespace.com/buy/some-payment-link'; // replace with the actual Squarespace payment link
+                    };
+                }
+
+                if (alreadyReserved.length > 0) {
+                    alert(`Numbers ${alreadyReserved.join(', ')} are already reserved. Please choose different numbers.`);
+                }
+            });
+        </script>
+        <script>
+            const googleScriptURL = "https://script.google.com/macros/s/AKfycbxMQC8C8ZOxb8sXLZiQD0fErBeV0olm03IanyzZf9QkXmAegIX_C_2iyaRCxunaxGoG/exec";
 
             purchaseForm.addEventListener('submit', (event) => {
                 event.preventDefault();
