@@ -131,8 +131,7 @@
         <button id="paymentButton">Proceed to Payment</button>
     </div>
 
-    <div class="grid-container" id="grid">
-        <div class="grid-background"></div>
+    
         <script>
             const googleScriptURL = "https://script.google.com/macros/s/AKfycbyXShC-AdVnCHHv4tpgwEZ8PPGjOKrtdJU-qEQdAdut/dev";
             const purchasedNumbers = new Set();
@@ -141,21 +140,7 @@
             const numbersInput = document.getElementById('numbers');
             const paymentButton = document.getElementById('paymentButton');
 
-            // Generate the grid items
-            for (let i = 0; i < 1000; i++) {
-                const gridItem = document.createElement('div');
-                gridItem.className = 'grid-item';
-                gridItem.textContent = String(i).padStart(3, '0');
-                gridItem.addEventListener('click', () => {
-                    if (!purchasedNumbers.has(i)) {
-                        const currentNumbers = numbersInput.value ? numbersInput.value.split(',').map(n => n.trim()) : [];
-                        if (!currentNumbers.includes(String(i).padStart(3, '0'))) {
-                            currentNumbers.push(String(i).padStart(3, '0'));
-                            numbersInput.value = currentNumbers.join(', ');
-                        }
-                    }
-                });
-                gridContainer.appendChild(gridItem);
+            
             }
 
             purchaseForm.addEventListener('submit', (event) => {
