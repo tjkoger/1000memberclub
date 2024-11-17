@@ -39,7 +39,7 @@
             };
 
             try {
-                const response = await fetch('https://script.google.com/macros/s/AKfycbxiHlVZWjlAD4sXX5w1-3YRnooDhMfH3r_g-dnlvw-93yrtAQLcaC7ff9FpTu-hktiL/exec', {
+                const response = await fetch('https://script.google.com/macros/s/AKfycbyrof1GYeDZAnRQl3TcbfLX7Y_g72IfPD-cS_jlNY-3mL3kjCak92tMJkpWHUJVS8xG/exec', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -58,7 +58,7 @@
         // JavaScript to fetch and display purchased numbers from Google Sheets
         async function loadNumbers() {
             try {
-                const response = await fetch('https://script.google.com/macros/s/AKfycbxiHlVZWjlAD4sXX5w1-3YRnooDhMfH3r_g-dnlvw-93yrtAQLcaC7ff9FpTu-hktiL/exec?load=true');
+                const response = await fetch('https://script.google.com/macros/s/AKfycbyrof1GYeDZAnRQl3TcbfLX7Y_g72IfPD-cS_jlNY-3mL3kjCak92tMJkpWHUJVS8xG/exec?load=true');
                 const data = await response.json();
                 const takenNumbers = data.takenNumbers;
                 const numberGrid = document.getElementById('numberGrid');
