@@ -104,11 +104,8 @@
       <div class="field is-grouped is-grouped-centered">
         <div class="control">
           <button class="button is-primary" type="submit" id="submit-button">
-            Sign Up
+            Reserve my Number
           </button>
-        </div>
-        <div class="control">
-          <button class="button is-danger">Cancel</button>
         </div>
       </div>
     </form>
@@ -165,7 +162,7 @@
           .then(function (data) {
             // Display a success message
             document.getElementById("message").textContent =
-              "Data submitted successfully!";
+              "Thank you for submitting your number request! Check your email to complete your purchase and reserve your number";
             document.getElementById("message").style.display = "block";
             document.getElementById("message").style.backgroundColor = "green";
             document.getElementById("message").style.color = "beige";
