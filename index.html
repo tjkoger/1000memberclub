@@ -22,7 +22,7 @@
   <body>
   <header style="background-color: #001f3f; color: white; padding: 20px; text-align: center;">
   <!-- Move the logo to the top and increase its size -->
-  <img src="1000clublogo.jpeg" alt="1000 Club Logo" style="height: 360px; display: block; margin: 0 auto;">
+  <img src="1000clublogo.jpeg" alt="1000 Club Logo" style="height: 240px; display: block; margin: 0 auto;">
 
   <!-- Title and navigation links below the logo -->
   <span style="font-size: 1.5em; font-weight: bold; display: block; margin-top: 20px;">1000 Member Club</span>
@@ -115,8 +115,19 @@
       </div>
     </form>
 <a href="available_numbers.html" style="display: block; text-align: center; margin-top: 20px; font-weight: bold;">Check Available Number Here</a>
-    
-    <div id="purchase-button-container" style="text-align: center; margin-top: 20px;"></div>
+    <div
+      id="message"
+      style="
+        display: none;
+        margin: 20px;
+        font-weight: bold;
+        color: green;
+        padding: 8px;
+        background-color: beige;
+        border-radius: 4px;
+        border-color: aquamarine;
+      "
+    ></div>
 
     <script>
       document.getElementById("form").addEventListener("submit", function (e) {
@@ -164,16 +175,7 @@
             document.getElementById("submit-button").disabled = false;
             document.getElementById("form").reset();
 
-            // Add the Purchase button after reservation is successful
-            const purchaseButtonContainer = document.getElementById("purchase-button-container");
-            purchaseButtonContainer.innerHTML = ""; // Clear any existing button first
-            const purchaseButton = document.createElement("a");
-            purchaseButton.href = "purchase.html"; // Replace with the appropriate link to the purchase page
-            purchaseButton.className = "button is-link";
-            purchaseButton.textContent = "Complete Your Purchase";
-            purchaseButtonContainer.appendChild(purchaseButton);
-
-            
+            setTimeout(function () {
               document.getElementById("message").textContent = "";
               document.getElementById("message").style.display = "none";
             }, 2600);
