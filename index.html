@@ -19,71 +19,63 @@
       }
     </style>
   </head>
-  
-<header style="background-color: #001f3f; color: white; padding: 20px; text-align: center;">
-  <!-- Title and navigation links below the logo -->
-  <span style="font-size: 1.5em; font-weight: bold; display: block; margin-top: 20px;">1000 Member Club</span>
-  <nav style="margin-top: 10px;">
-    <a href="home.html" style="color: white; text-decoration: none; margin: 0 10px;">Home</a>
-    <a href="available_numbers.html" style="color: white; text-decoration: none; margin: 0 10px;">Available Numbers</a>
-    <a href="contact.html" style="color: white; text-decoration: none; margin: 0 10px;">Contact Us</a>
-  </nav>
-</header>
-  
-<div style="text-align: center; max-width: 600px; margin: 20px auto; padding: 10px; background-color: #f9f9f9; border: 1px solid #ccc; border-radius: 10px;">
-  <p>Welcome to the 1000 Member Club! Please fill out the form below to reserve your number. We are excited to have you join us!</p>
-</div>
+  <body>
+    <header style="background-color: #001f3f; color: white; padding: 20px; text-align: center;">
+      <!-- Move the logo to the top -->
+      <img src="1000clublogo.jpeg" alt="1000 Club Logo" style="height: 240px; display: block; margin: 0 auto;">
+      <!-- Title and navigation links below the logo -->
+      <span style="font-size: 1.5em; font-weight: bold; display: block; margin-top: 20px;">1000 Member Club</span>
+      <nav style="margin-top: 10px;">
+        <a href="home.html" style="color: white; text-decoration: none; margin: 0 10px;">Home</a>
+        <a href="available_numbers.html" style="color: white; text-decoration: none; margin: 0 10px;">Available Numbers</a>
+        <a href="contact.html" style="color: white; text-decoration: none; margin: 0 10px;">Contact Us</a>
+      </nav>
+    </header>
+
+    <div style="text-align: center; max-width: 600px; margin: 20px auto; padding: 10px; background-color: #f9f9f9; border: 1px solid #ccc; border-radius: 10px;">
+      <p>Welcome to the 1000 Member Club! Please fill out the form below to reserve your number. We are excited to have you join us!</p>
+    </div>
+
     <form id="form" method="POST">
       <div class="field">
         <label class="label">First Name</label>
         <div class="control">
-          <input class="input" type="text" placeholder="First Name" name="First Name" required
-          />
+          <input class="input" type="text" placeholder="First Name" name="First Name" required />
         </div>
       </div>
 
       <div class="field">
         <label class="label">Last Name</label>
         <div class="control">
-          <input class="input" type="text" placeholder="Last Name" name="Last Name" required
-          />
+          <input class="input" type="text" placeholder="Last Name" name="Last Name" required />
         </div>
       </div>
      
       <div class="field">
         <label class="label">Email</label>
         <div class="control">
-          <input class="input" type="email" placeholder="Your Email" name="Email" required
-          />
+          <input class="input" type="email" placeholder="Your Email" name="Email" required />
         </div>
       </div>
 
       <div class="field">
         <label class="label">Phone Number</label>
         <div class="control">
-          <input class="input" type="tel" placeholder="Your Phone Number" name="Phone Number" required
-          />
+          <input class="input" type="tel" placeholder="Your Phone Number" name="Phone Number" required />
         </div>
       </div>
    
       <div class="field">
         <label class="label">Number (000-999)</label>
         <div class="control">
-          <input class="input" type="number" placeholder="Enter a number" name="Number" required
-            min="0"
-            max="999"
-          />
+          <input class="input" type="number" placeholder="Enter a number" name="Number" required min="0" max="999" />
         </div>
       </div>
 
       <div class="field">
         <label class="label">Additional Information</label>
         <div class="control">
-          <textarea
-            class="textarea"
-            placeholder="Any additional information"
-            name="Notes"
-          ></textarea>
+          <textarea class="textarea" placeholder="Any additional information" name="Notes"></textarea>
         </div>
       </div>
 
@@ -95,7 +87,9 @@
         </div>
       </div>
     </form>
-<a href="purchase page.html" style="display: block; text-align: center; margin-top: 20px; margin-bottom: 40px; font-weight: bold;">After your number is reserved complete your purchase here</a>
+
+    <a href="purchase page.html" style="display: block; text-align: center; margin-top: 20px; margin-bottom: 40px; font-weight: bold;">After your number is reserved complete your purchase here</a>
+    
     <div
       id="message"
       style="
@@ -151,24 +145,4 @@
             document.getElementById("message").textContent =
               "Thank you for submitting your number request! Check your email to complete your purchase and reserve your number";
             document.getElementById("message").style.display = "block";
-            document.getElementById("message").style.backgroundColor = "green";
-            document.getElementById("message").style.color = "beige";
-            document.getElementById("submit-button").disabled = false;
-            document.getElementById("form").reset();
-
-            setTimeout(function () {
-              document.getElementById("message").textContent = "";
-              document.getElementById("message").style.display = "none";
-            }, 2600);
-          })
-          .catch(function (error) {
-            // Handle errors, you can display an error message here
-            console.error(error);
-            document.getElementById("message").textContent =
-              "An error occurred while submitting the form.";
-            document.getElementById("message").style.display = "block";
-          });
-      });
-    </script>
-  </body>
-</html>
+            document.getElemen
